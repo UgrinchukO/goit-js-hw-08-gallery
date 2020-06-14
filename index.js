@@ -1,4 +1,4 @@
-import Gallery from "./gallery-items.js";
+import images from "./gallery-items.js";
 
 const gallery = document.querySelector(".js-gallery");
 const lightbox = document.querySelector(".js-lightbox");
@@ -23,40 +23,27 @@ const createMarkUp = (item, idx) => {
   return liRef;
 };
 
-// const createGal = (items) => {
-//   let idx = 0;
-//   const itemsRef = [];
-//   items.map((item) => {
-//     itemsRef.push(createMarkUp(item, idx));
-//     idx += 1;
-//     return itemsRef;
-//   });
-//   gallery.append(...itemsRef);
-// };
-
 const createGal = (items) => {
   const itemsRef = items.map((item, idx) => {
     return createMarkUp(item, idx);
   });
   gallery.append(...itemsRef);
-  return createGal(Gallery);
 };
 
 const onClickHandler = (e) => {
   e.preventDefault();
 
-  if (e.target.nodeName === modalImage) {
+  if (e.target.nodeName === "IMG") {
     lightbox.classList.add("is-open");
-    modalImage.querySelector(".lightbox__image").src = e.target.src;
-    modalImage.querySelector(".lightbox__image").alt = e.target.alt;
+    modalImage.src = e.target.dataset.source;
+    modalImage.alt = e.target.alt;
   }
 };
 
 const onCloseHandler = (e) => {
-  if (e.target.nodeName === btnEsc) {
     lightbox.classList.remove("is-open");
-  }
 };
+createGal(images);
 
 /*call fn*/
 gallery.addEventListener("click", onClickHandler);
