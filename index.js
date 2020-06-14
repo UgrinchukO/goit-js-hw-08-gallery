@@ -41,9 +41,20 @@ const onClickHandler = (e) => {
 };
 
 const onCloseHandler = (e) => {
-    lightbox.classList.remove("is-open");
+  lightbox.classList.remove("is-open");
+  window.addEventListener("keydown", closeModal);
+  lightbox.addEventListener("click", closeModal);
 };
 createGal(images);
+
+const closeModal = (e) => {
+  if (e.code === "Escape") {
+    onCloseHandler(e);
+  }
+  if (e.target === modalContent) {
+    onCloseHandler(e);
+  }
+};
 
 /*call fn*/
 gallery.addEventListener("click", onClickHandler);
